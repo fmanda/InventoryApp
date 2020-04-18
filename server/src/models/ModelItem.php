@@ -1,10 +1,10 @@
 <?php
 	require_once '../src/models/BaseModel.php';
 
-	class ModelWarehouse extends BaseModel{
+	class ModelItem extends BaseModel{
 		public static function getFields(){
 			return array(
-				"warehousename"
+				"itemcode", "itemname", "groupname", "purchaseprice", "sellingprice"
 			);
 		}
 

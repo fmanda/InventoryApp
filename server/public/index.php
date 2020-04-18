@@ -27,5 +27,8 @@ $app->get('/', function (Request $request, Response $response, $args) {
 });
 
 require '../src/routes/warehouse.php';
+require '../src/routes/transheader.php';
+require '../src/routes/user.php';
+require '../src/routes/item.php';
 
 $app->run();
