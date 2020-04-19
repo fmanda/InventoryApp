@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -50,7 +51,7 @@ public class ItemFragment extends Fragment {
         fbAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addItem(v);
+                addItem(v, null);
             }
         });
 
@@ -58,8 +59,15 @@ public class ItemFragment extends Fragment {
         rvItems = root.findViewById(R.id.rvItems);
         rvItems.setLayoutManager(new GridLayoutManager(getContext(), 1));
         rvItems.setAdapter(itemAdapter);
-        loadItems();
 
+        itemAdapter.setItemClickListener(new ItemAdapter.ItemClickListener() {
+             @Override
+             public void onClick(ModelItem modelItem) {
+                addItem(getView(), modelItem);
+             }
+        });
+
+        loadItems();
 
 
         return root;
@@ -92,11 +100,9 @@ public class ItemFragment extends Fragment {
 
     }
 
-    private void addItem(View v){
-        ModelItem modelItem = new ModelItem();
-        modelItem.setItemname("item name");
-        ItemFragmentDirections.ActionNavItemToNavSetting action = ItemFragmentDirections.actionNavItemToNavSetting();
-        action.setSampleObject(modelItem);
+    private void addItem(View v, ModelItem modelItem){
+        ItemFragmentDirections.ActionNavItemToUpdateItemFragment action = ItemFragmentDirections.actionNavItemToUpdateItemFragment();
+        action.setModelItem(modelItem);
         Navigation.findNavController(v).navigate(action);
     }
 }

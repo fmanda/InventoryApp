@@ -3,9 +3,11 @@ package com.fmanda.inventoryapp.controller;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.RequestFuture;
+import com.android.volley.toolbox.StringRequest;
 import com.fmanda.inventoryapp.helper.DBHelper;
 import com.fmanda.inventoryapp.helper.GsonRequest;
 import com.fmanda.inventoryapp.model.BaseModel;
@@ -165,6 +167,37 @@ public class ControllerRest {
         return true;
     }
 
+    public boolean DeleteItem(int itemID){
+        try {
+            String url = base_url() + "item" + "/" + String.valueOf(itemID);
+            StringRequest sr = new StringRequest(Request.Method.DELETE, url,
+                    new Response.Listener<String>()
+                    {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            if (listener != null) {
+                                listener.onSuccess(response);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (listener != null) {
+                                listener.onError(error.toString());
+                            }
+                        }
+                    }
+            );
+            this.controllerRequest.addToRequestQueue(sr, url);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public boolean DownloadWarehouse(){
         try {
             String url = base_url() + "warehouse";
@@ -219,11 +252,32 @@ public class ControllerRest {
         }
     }
 
-//    public void SyncProjects(int monthperiod, int yearperiod){
-//        AsyncRestRunner runner = new AsyncRestRunner(this, monthperiod, yearperiod);
-//        runner.syncProject = Boolean.FALSE;
-//        runner.execute(Boolean.FALSE);
-//    }
+    public void UpdateItem(ModelItem modelItem){
+        try {
+            String url = base_url() + "item";
+            GsonRequest<ModelItem> gsonReq = new GsonRequest<>(url, modelItem,
+                    new Response.Listener<ModelItem>() {
+                        @Override
+                        public void onResponse(ModelItem response) {
+                            if (listener != null) {
+                                listener.onSuccess("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (listener != null) {
+                                listener.onError(error.toString());
+                            }
+                        }
+                    }
+            );
+            this.controllerRequest.addToRequestQueue(gsonReq, url);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
 
 //next ganti ke java.util.concurrent

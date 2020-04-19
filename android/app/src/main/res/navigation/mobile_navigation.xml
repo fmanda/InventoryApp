@@ -28,6 +28,20 @@
         <action
             android:id="@+id/action_nav_item_to_nav_setting"
             app:destination="@id/nav_setting" />
+        <action
+            android:id="@+id/action_nav_item_to_updateItemFragment"
+            app:destination="@id/nav_update_item" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_update_item"
+        android:name="com.fmanda.inventoryapp.ui.item.UpdateItemFragment"
+        android:label="fragment_update_item"
+        tools:layout="@layout/fragment_update_item" >
+        <argument
+            android:name="modelItem"
+            app:argType="com.fmanda.inventoryapp.model.ModelItem"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 </navigation>

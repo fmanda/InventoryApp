@@ -4,12 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fmanda.inventoryapp.R;
+import com.fmanda.inventoryapp.helper.CurrencyHelper;
 import com.fmanda.inventoryapp.model.ModelItem;
 import com.fmanda.inventoryapp.model.ModelWarehouse;
 
@@ -42,6 +45,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.modelItem = items.get(i);
         viewHolder.txtNama.setText(viewHolder.modelItem.getItemname());
+//        viewHolder.txtGroup.setText(viewHolder.modelItem.getGroupname());
+//        viewHolder.txtPrice.setText(CurrencyHelper.format(viewHolder.modelItem.getSellingprice(), true) );
     }
 
     @Override
@@ -53,14 +58,30 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ModelItem modelItem;
         public TextView txtNama;
+        public LinearLayout lnItemAdapter;
+//        public TextView txtGroup;
+//        public TextView txtPrice;
 
         public ViewHolder(View itemView) {
             super(itemView);
             txtNama = itemView.findViewById(R.id.txtNama);
+            lnItemAdapter = itemView.findViewById(R.id.lnItemAdapter);
+//            txtGroup = itemView.findViewById(R.id.txtGroup);
+//            txtPrice = itemView.findViewById(R.id.txtPrice);
+
+            lnItemAdapter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onClick(modelItem);
+                    }
+                }
+            });
         }
         //
         @Override
         public void onClick(View v) {
+            Toast.makeText(context, "click", Toast.LENGTH_SHORT).show();
             if (itemClickListener != null) {
                 itemClickListener.onClick(modelItem);
             }
