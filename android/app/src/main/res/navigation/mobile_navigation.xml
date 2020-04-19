@@ -26,9 +26,6 @@
         android:label="fragment_item"
         tools:layout="@layout/fragment_item" >
         <action
-            android:id="@+id/action_nav_item_to_nav_setting"
-            app:destination="@id/nav_setting" />
-        <action
             android:id="@+id/action_nav_item_to_updateItemFragment"
             app:destination="@id/nav_update_item" />
     </fragment>
@@ -46,6 +43,53 @@
     <fragment
         android:id="@+id/nav_listtrans"
         android:name="com.fmanda.inventoryapp.ui.transheader.ListTransHeader"
-        android:label="ListTransHeader" />
+        android:label="ListTransHeader" >
+        <action
+            android:id="@+id/action_nav_listtrans_to_transHeaderFragment"
+            app:destination="@id/nav_transheader" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_transheader"
+        android:name="com.fmanda.inventoryapp.ui.transheader.TransHeaderFragment"
+        android:label="fragment_transheader"
+        tools:layout="@layout/fragment_transheader" >
+        <argument
+            android:name="modeltransheader"
+            app:argType="com.fmanda.inventoryapp.model.ModelTransHeader"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_nav_transheader_to_nav_pickitem"
+            app:destination="@id/nav_pickitem" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_pickitem"
+        android:name="com.fmanda.inventoryapp.ui.transheader.PickItemFragment"
+        android:label="PickItemFragment" >
+        <argument
+            android:name="modeltransheader"
+            app:argType="com.fmanda.inventoryapp.model.ModelTransHeader"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_nav_pickitem_to_nav_transreview"
+            app:destination="@id/nav_transreview" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_transreview"
+        android:name="com.fmanda.inventoryapp.ui.transheader.TransReviewFragment"
+        android:label="fragment_transreview"
+        tools:layout="@layout/fragment_transreview" >
+        <argument
+            android:name="modeltransheader"
+            app:argType="com.fmanda.inventoryapp.model.ModelTransHeader"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="modelitems"
+            app:argType="com.fmanda.inventoryapp.model.ModelItems"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>

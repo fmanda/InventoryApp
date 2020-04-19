@@ -22,7 +22,7 @@
     <string name="default_text">text</string>
     <string name="menu_setting">Setting</string>
     <string name="menu_item">Data Barang</string>
-    <string name="menu_trans">Input Mutasi</string>
+    <string name="menu_trans">Transaksi</string>
     <string name="caption_simpan">Simpan</string>
 
     <string-array name="months_array">
@@ -59,6 +59,12 @@
     <string-array name="periods_array">
         <item>Last 7 Days</item>
         <item>Last 30 Days</item>
+    </string-array>
+
+    <string-array name="transkind_array">
+        <item>Pembelian Barang</item>
+        <item>Penjualan Barang</item>
+        <item>Transfer Antar Gudang</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

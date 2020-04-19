@@ -3,11 +3,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
     tools:context=".ui.transheader.TransHeaderFragment">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="trans ehader" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Pilih Jenis Transaksi" />
+
+    <RadioGroup
+        android:id="@+id/rbTrans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbPurchase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Pembelian Barang / Stock Masuk" />
+
+        <RadioButton
+            android:id="@+id/rbSelling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Penjualan Barang / Stock Keluar" />
+
+        <RadioButton
+            android:id="@+id/rbTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Transfer Barang Antar Gudang/Toko" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/lbWarehouse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Pilih Gudang Asal" />
+
+    <Spinner
+        android:id="@+id/spWarehouse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/lbDestWarehouse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Pilih Gudang Tujuan" />
+
+    <Spinner
+        android:id="@+id/spDestWarehouse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorMoney"
+        android:text="Pilih Item"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

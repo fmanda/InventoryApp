@@ -12,6 +12,7 @@ import com.fmanda.inventoryapp.helper.DBHelper;
 import com.fmanda.inventoryapp.helper.GsonRequest;
 import com.fmanda.inventoryapp.model.BaseModel;
 import com.fmanda.inventoryapp.model.ModelItem;
+import com.fmanda.inventoryapp.model.ModelTransHeader;
 import com.fmanda.inventoryapp.model.ModelWarehouse;
 
 import java.util.concurrent.ExecutionException;
@@ -259,6 +260,33 @@ public class ControllerRest {
                     new Response.Listener<ModelItem>() {
                         @Override
                         public void onResponse(ModelItem response) {
+                            if (listener != null) {
+                                listener.onSuccess("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (listener != null) {
+                                listener.onError(error.toString());
+                            }
+                        }
+                    }
+            );
+            this.controllerRequest.addToRequestQueue(gsonReq, url);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateTransHeader(ModelTransHeader modelTransHeader){
+        try {
+            String url = base_url() + "transheader";
+            GsonRequest<ModelTransHeader> gsonReq = new GsonRequest<>(url, modelTransHeader,
+                    new Response.Listener<ModelTransHeader>() {
+                        @Override
+                        public void onResponse(ModelTransHeader response) {
                             if (listener != null) {
                                 listener.onSuccess("");
                             }

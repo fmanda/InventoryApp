@@ -3,6 +3,7 @@ package com.fmanda.inventoryapp.controller;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.ExpandableListAdapter;
 import android.widget.Toast;
 
 import com.fmanda.inventoryapp.helper.DBHelper;
@@ -41,5 +42,21 @@ public class ControllerWarehouse {
         return null;
     }
 
+    public ModelWarehouse getWarehouse(int id){
+        try{
+            DBHelper db = DBHelper.getInstance(context);
+            SQLiteDatabase rdb = db.getReadableDatabase();
+
+            Cursor cursor = rdb.rawQuery("select * from warehouse where id =" + String.valueOf(id), null);
+            ModelWarehouse modelSetting = new ModelWarehouse();
+            if (cursor.moveToNext()) {
+                modelSetting.loadFromCursor(cursor);
+                return modelSetting;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return new ModelWarehouse();
+    }
 }
 

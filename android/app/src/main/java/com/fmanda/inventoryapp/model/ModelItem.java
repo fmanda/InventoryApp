@@ -12,6 +12,8 @@ public class ModelItem extends BaseModel {
     @TableField
     private Double sellingprice = 0.0;
 
+    public int qty = 0;
+
     public String getItemcode() {
         return itemcode;
     }
