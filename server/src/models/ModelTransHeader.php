@@ -4,7 +4,7 @@
 	class ModelTransHeader extends BaseModel{
 		public static function getFields(){
 			return array(
-				"transno", "transdate", "header_flag", "warehouse_id", "notes"
+				"transno", "transdate", "header_flag", "warehouse_id", "dest_warehouse_id", "notes"
 			);
 		}
 

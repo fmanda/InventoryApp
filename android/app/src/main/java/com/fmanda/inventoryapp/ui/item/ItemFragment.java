@@ -55,7 +55,7 @@ public class ItemFragment extends Fragment {
             }
         });
 
-        itemAdapter = new ItemAdapter(getContext(), mViewModel.projects);
+        itemAdapter = new ItemAdapter(getContext(), mViewModel.items);
         rvItems = root.findViewById(R.id.rvItems);
         rvItems.setLayoutManager(new GridLayoutManager(getContext(), 1));
         rvItems.setAdapter(itemAdapter);
@@ -67,9 +67,20 @@ public class ItemFragment extends Fragment {
              }
         });
 
+        searchItem.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterItem(s);
+                return false;
+            }
+        });
+
         loadItems();
-
-
         return root;
     }
 
@@ -94,15 +105,28 @@ public class ItemFragment extends Fragment {
     }
 
     private void loadItemsView(ModelItem[] items){
-        mViewModel.projects.clear();
-        mViewModel.projects.addAll( new ArrayList<ModelItem>(Arrays.asList(items)) );
-        itemAdapter.notifyDataSetChanged();
-
+        mViewModel.allitems.clear();
+        mViewModel.allitems.addAll( new ArrayList<ModelItem>(Arrays.asList(items)) );
+        filterItem("");
     }
 
     private void addItem(View v, ModelItem modelItem){
         ItemFragmentDirections.ActionNavItemToUpdateItemFragment action = ItemFragmentDirections.actionNavItemToUpdateItemFragment();
         action.setModelItem(modelItem);
         Navigation.findNavController(v).navigate(action);
+    }
+
+    private void filterItem(String s){
+        mViewModel.items.clear();
+        if (s.equals("")){
+            mViewModel.items.addAll(mViewModel.allitems);
+        }else{
+            for (ModelItem item : mViewModel.allitems){
+                if (item.getItemname().toLowerCase().contains(s.toLowerCase())){
+                    mViewModel.items.add(item);
+                }
+            }
+        }
+        itemAdapter.notifyDataSetChanged();
     }
 }

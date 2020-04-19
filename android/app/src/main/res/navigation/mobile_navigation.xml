@@ -43,5 +43,9 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_listtrans"
+        android:name="com.fmanda.inventoryapp.ui.transheader.ListTransHeader"
+        android:label="ListTransHeader" />
 
 </navigation>

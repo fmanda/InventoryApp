@@ -12,6 +12,12 @@
             android:id="@+id/nav_item"
             android:icon="@drawable/ic_menu_setting"
             android:title="@string/menu_item" />
+
+        <item
+            android:id="@+id/nav_listtrans"
+            android:icon="@drawable/ic_menu_setting"
+            android:title="@string/menu_item" />
+
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_setting"

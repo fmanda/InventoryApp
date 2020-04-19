@@ -22,6 +22,7 @@
     <string name="default_text">text</string>
     <string name="menu_setting">Setting</string>
     <string name="menu_item">Data Barang</string>
+    <string name="menu_trans">Input Mutasi</string>
     <string name="caption_simpan">Simpan</string>
 
     <string-array name="months_array">

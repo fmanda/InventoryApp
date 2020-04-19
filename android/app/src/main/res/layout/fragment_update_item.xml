@@ -15,7 +15,8 @@
             android:id="@+id/txtNama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Barang" />
+            android:hint="Nama Barang"
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -26,7 +27,8 @@
             android:id="@+id/txtGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Group" />
+            android:hint="Group"
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -39,7 +41,8 @@
             android:layout_height="wrap_content"
             android:hint="Harga Beli"
             android:inputType="number"
-            android:numeric="decimal" />
+            android:numeric="decimal"
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -52,7 +55,8 @@
             android:layout_height="wrap_content"
             android:hint="Harga Jual"
             android:inputType="number"
-            android:numeric="decimal" />
+            android:numeric="decimal"
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout

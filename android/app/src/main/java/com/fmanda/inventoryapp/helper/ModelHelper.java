@@ -174,7 +174,7 @@ public class ModelHelper {
         return str;
     }
 
-    private static String getRepalceValues(BaseModel obj){
+    private static String getReplaceValues(BaseModel obj){
         String str = "";
         List<Field> fields = getDBFields(obj);
         for (Field field : fields) {
@@ -185,12 +185,13 @@ public class ModelHelper {
     }
 
     public static String generateSQL(BaseModel obj){
-//        if (obj.getId() <= 0) {
-//            return generateSQLInsert(obj);
-//        }else{
+        if (obj.getId() <= 0) {
+            return generateSQLInsert(obj);
+        }else{
 //            return generateSQLUpdate(obj);
-//        }
-        return generateSQLReplace(obj);
+            return generateSQLReplace(obj);
+        }
+
     }
 
     public static String generateSQLInsert(BaseModel obj){
@@ -203,7 +204,7 @@ public class ModelHelper {
     public static String generateSQLReplace(BaseModel obj){
         String str ="replace into " + obj.getTableName() + "(";
         str += getReplaceFields(obj) + ") values(";
-        str += getRepalceValues(obj) + ");";
+        str += getReplaceValues(obj) + ");";
         return str;
     }
 
