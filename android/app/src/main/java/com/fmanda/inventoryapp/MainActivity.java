@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-//        navController.navigate(R.id.nav_inventory);
+        navController.navigate(R.id.nav_item);
 //        setBackgroundColor(this.getColor(R.color.colorBackground));
         if (isWarehouseEmpty()){
             navController.navigate(R.id.nav_setting);

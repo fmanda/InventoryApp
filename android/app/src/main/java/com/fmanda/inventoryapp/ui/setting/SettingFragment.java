@@ -82,6 +82,13 @@ public class SettingFragment extends Fragment {
             }
         });
 
+        if (getArguments() != null){
+            SettingFragmentArgs args = SettingFragmentArgs.fromBundle(getArguments());
+            if (args.getSampleObject() != null) {
+                Toast.makeText(getContext(), args.getSampleObject().getItemname(), Toast.LENGTH_SHORT).show();
+            }
+        }
+
         return root;
     }
 

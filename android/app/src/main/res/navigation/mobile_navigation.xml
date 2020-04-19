@@ -13,11 +13,21 @@
         android:id="@+id/nav_setting"
         android:name="com.fmanda.inventoryapp.ui.setting.SettingFragment"
         android:label="Setting &amp; Login"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <argument
+            android:name="sampleObject"
+            app:argType="com.fmanda.inventoryapp.model.ModelItem"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/nav_item"
         android:name="com.fmanda.inventoryapp.ui.item.ItemFragment"
         android:label="fragment_item"
-        tools:layout="@layout/fragment_item" />
+        tools:layout="@layout/fragment_item" >
+        <action
+            android:id="@+id/action_nav_item_to_nav_setting"
+            app:destination="@id/nav_setting" />
+    </fragment>
 
 </navigation>
