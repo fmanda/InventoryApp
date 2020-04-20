@@ -1,12 +1,16 @@
 package com.fmanda.inventoryapp.model;
 
+import com.fmanda.inventoryapp.helper.RandomString;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ModelTransHeader extends BaseModel {
     @TableField
-    private String transno;
+    private String transno = "";
     @TableField
     private Date transdate;
     @TableField
@@ -74,6 +78,13 @@ public class ModelTransHeader extends BaseModel {
             return "Transfer Stock Antar Gudang/Toko";
         }else{
             return "";
+        }
+    }
+
+    public void generateTransNo(){
+        if (this.transno.equals("")) {
+            RandomString gen = new RandomString(12, ThreadLocalRandom.current());
+            this.transno = gen.nextString();
         }
     }
 }

@@ -4,19 +4,24 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_home"
-            android:title="@string/menu_home" />
+<!--        <item-->
+<!--            android:id="@+id/nav_home"-->
+<!--            android:icon="@drawable/ic_menu_home"-->
+<!--            android:title="@string/menu_home" />-->
         <item
             android:id="@+id/nav_item"
-            android:icon="@drawable/ic_menu_setting"
+            android:icon="@drawable/ic_menu_stock"
             android:title="@string/menu_item" />
 
         <item
             android:id="@+id/nav_listtrans"
-            android:icon="@drawable/ic_menu_setting"
+            android:icon="@drawable/ic_menu_chart"
             android:title="@string/menu_trans" />
+
+        <item
+            android:id="@+id/nav_stock_report"
+            android:icon="@drawable/ic_menu_apaging"
+            android:title="Laporan Stock" />
 
         <item
             android:id="@+id/nav_setting"

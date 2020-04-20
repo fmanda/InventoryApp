@@ -3,6 +3,8 @@ package com.fmanda.inventoryapp.ui.transheader;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,14 +22,17 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fmanda.inventoryapp.R;
+import com.fmanda.inventoryapp.controller.ControllerRest;
 import com.fmanda.inventoryapp.controller.ControllerSetting;
 import com.fmanda.inventoryapp.controller.ControllerWarehouse;
 import com.fmanda.inventoryapp.model.ModelTransDetail;
 import com.fmanda.inventoryapp.model.ModelTransHeader;
 import com.fmanda.inventoryapp.model.ModelWarehouse;
 import com.fmanda.inventoryapp.ui.item.UpdateItemFragmentArgs;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,10 +47,12 @@ public class TransHeaderFragment extends Fragment {
     private RadioButton rbSelling;
     private RadioButton rbTransfer;
     private TextView lbWarehouse;
+    private TextView txtTransNo;
     private TextView lbDestWarehouse;
     private Spinner spWarehouse;
     private Spinner spDestWarehouse;
     private Button btnNext;
+    private Button btnDelete;
     public ModelTransHeader modelTransHeader = new ModelTransHeader();
 
 //    boolean spWarehouseInit = true;
@@ -73,9 +80,11 @@ public class TransHeaderFragment extends Fragment {
         rbTransfer = root.findViewById(R.id.rbTransfer);
         lbWarehouse = root.findViewById(R.id.lbWarehouse);
         lbDestWarehouse = root.findViewById(R.id.lbDestWarehouse);
+        txtTransNo = root.findViewById(R.id.txtTransNo);
         spWarehouse = root.findViewById(R.id.spWarehouse);
         spDestWarehouse = root.findViewById(R.id.spDestWarehouse);
         btnNext = root.findViewById(R.id.btnNext);
+        btnDelete = root.findViewById(R.id.btnDelete);
 
         spWarehouseAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item);
         spWarehouseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -106,22 +115,78 @@ public class TransHeaderFragment extends Fragment {
             }
         });
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteTrans();
+            }
+        });
 
         rbTrans.check(R.id.rbSelling);
 
+        modelTransHeader.generateTransNo();
+        txtTransNo.setText(modelTransHeader.getTransno());
+
+        btnDelete.setVisibility(View.INVISIBLE);
         if (getArguments() != null){
             TransHeaderFragmentArgs args = TransHeaderFragmentArgs.fromBundle(getArguments());
             if (args.getModeltransheader() != null) {
                 modelTransHeader = args.getModeltransheader();
                 loadData(modelTransHeader);
+                btnDelete.setVisibility(View.VISIBLE);
             }
         }
 
         return root;
     }
 
-    private void loadData(ModelTransHeader modelTransHeader) {
+    private void deleteTrans(){
+        if (modelTransHeader == null){
+            Snackbar.make(getView(), "Tidak ada data yang akan Dihapus", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            return;
+        }
 
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Anda yaking menghapus transaksi ini?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+
+                ControllerRest cr = new ControllerRest(getContext());
+                cr.setListener(new ControllerRest.Listener() {
+                    @Override
+                    public void onSuccess(String msg) {
+                        Toast.makeText(getContext(), "Data transaksi berhasil dihapus", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(getView()).navigate(R.id.nav_listtrans);
+                    }
+
+                    @Override
+                    public void onError(String msg) {
+                        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onProgress(String msg) {
+
+                    }
+                });
+                cr.DeleteTransHeader(modelTransHeader.getId());
+
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void loadData(ModelTransHeader modelTransHeader) {
+        txtTransNo.setText(modelTransHeader.getTransno());
         //hilangkan lawan transaksi transfer
         if (modelTransHeader.getHeader_flag() == 3) {
             Iterator<ModelTransDetail> it = modelTransHeader.getItems().iterator();
@@ -147,15 +212,17 @@ public class TransHeaderFragment extends Fragment {
 
         int position = 0;
         for (ModelWarehouse warehouse : warehouses){
-            position++;
             if (warehouse.getId() == modelTransHeader.getWarehouse_id()){
                 spWarehouse.setSelection(position);
             }
-
             if (warehouse.getId() == modelTransHeader.getDest_warehouse_id() && spDestWarehouse.getVisibility() == View.VISIBLE) {
                 spDestWarehouse.setSelection(position);
             }
+            position++;
         }
+
+
+
     }
 
     private void processNext() {
@@ -205,13 +272,13 @@ public class TransHeaderFragment extends Fragment {
         String last_trans_warehouse = cs.getSettingStr("last_trans_warehouse");
         int position = 0;
         for(ModelWarehouse warehouse : warehouses){
-            position++;
             spWarehouseAdapter.add(warehouse.getWarehousename());
             spDestWarehouseAdapter.add(warehouse.getWarehousename());
 
             if (String.valueOf(warehouse.getId()).equals(last_trans_warehouse)){
                 spWarehouse.setSelection(position);
             }
+            position++;
         }
 
     }

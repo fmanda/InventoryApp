@@ -63,7 +63,7 @@ public class GsonRequest<T> extends Request<T> {
     }
 
     protected void initialize(){
-        gsonBuilder = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+        gsonBuilder = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss");
         gson = gsonBuilder.create();
     }
 

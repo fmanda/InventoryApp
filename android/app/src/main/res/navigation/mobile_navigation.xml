@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/nav_item"
         android:name="com.fmanda.inventoryapp.ui.item.ItemFragment"
-        android:label="fragment_item"
+        android:label="Data Barang"
         tools:layout="@layout/fragment_item" >
         <action
             android:id="@+id/action_nav_item_to_updateItemFragment"
@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/nav_update_item"
         android:name="com.fmanda.inventoryapp.ui.item.UpdateItemFragment"
-        android:label="fragment_update_item"
+        android:label="Update Data Barang"
         tools:layout="@layout/fragment_update_item" >
         <argument
             android:name="modelItem"
@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/nav_listtrans"
         android:name="com.fmanda.inventoryapp.ui.transheader.ListTransHeader"
-        android:label="ListTransHeader" >
+        android:label="Daftar Transaksi" >
         <action
             android:id="@+id/action_nav_listtrans_to_transHeaderFragment"
             app:destination="@id/nav_transheader" />
@@ -51,7 +51,7 @@
     <fragment
         android:id="@+id/nav_transheader"
         android:name="com.fmanda.inventoryapp.ui.transheader.TransHeaderFragment"
-        android:label="fragment_transheader"
+        android:label="Update Data Transaksi"
         tools:layout="@layout/fragment_transheader" >
         <argument
             android:name="modeltransheader"
@@ -65,7 +65,7 @@
     <fragment
         android:id="@+id/nav_pickitem"
         android:name="com.fmanda.inventoryapp.ui.transheader.PickItemFragment"
-        android:label="PickItemFragment" >
+        android:label="Pilih Barang" >
         <argument
             android:name="modeltransheader"
             app:argType="com.fmanda.inventoryapp.model.ModelTransHeader"
@@ -78,7 +78,7 @@
     <fragment
         android:id="@+id/nav_transreview"
         android:name="com.fmanda.inventoryapp.ui.transheader.TransReviewFragment"
-        android:label="fragment_transreview"
+        android:label="Konfirmasi Simpan"
         tools:layout="@layout/fragment_transreview" >
         <argument
             android:name="modeltransheader"
@@ -91,5 +91,9 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_stock_report"
+        android:name="com.fmanda.inventoryapp.ui.stock.StockReportFragment"
+        android:label="Stock Barang" />
 
 </navigation>

@@ -9,7 +9,7 @@ $app = AppFactory::create();
 
 // $app->options('/{routes:.+}', function ($request, $response, $args) {
 //     return $response;
-// });
+// });bas
 $app->addErrorMiddleware(true, false, false);
 
 $app->add(function ($request, $handler) {
@@ -30,5 +30,6 @@ require '../src/routes/warehouse.php';
 require '../src/routes/transheader.php';
 require '../src/routes/user.php';
 require '../src/routes/item.php';
+require '../src/routes/stock.php';
 
 $app->run();

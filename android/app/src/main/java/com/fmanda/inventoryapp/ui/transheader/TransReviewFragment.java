@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +34,7 @@ public class TransReviewFragment extends Fragment {
     RecyclerView rvItems;
     TextView txtTransType;
     TextView txtWarehouse;
-    TextView txtDestWarehouse;
+    TextView txtTransNo;
     SummaryItemAdapter itemAdapter;
     ModelItems modelItems;
 
@@ -52,7 +53,7 @@ public class TransReviewFragment extends Fragment {
         rvItems = root.findViewById(R.id.rvItems);
         txtTransType = root.findViewById(R.id.txtTransType);
         txtWarehouse = root.findViewById(R.id.txtWarehouse);
-        txtDestWarehouse = root.findViewById(R.id.txtDestWarehouse);
+        txtTransNo = root.findViewById(R.id.txtTransNo);
 
         itemAdapter = new SummaryItemAdapter(getContext(), mViewModel.items);
         rvItems = root.findViewById(R.id.rvItems);
@@ -95,19 +96,15 @@ public class TransReviewFragment extends Fragment {
         ControllerWarehouse controllerWarehouse = new ControllerWarehouse(getContext());
 
         txtWarehouse.setText(controllerWarehouse.getWarehouse(modelTransHeader.getWarehouse_id()).getWarehousename());
-        txtDestWarehouse.setText(controllerWarehouse.getWarehouse(modelTransHeader.getDest_warehouse_id()).getWarehousename());
+        txtTransNo.setText(modelTransHeader.getTransno());
 
         if (modelTransHeader.getHeader_flag() == 3){
-            txtWarehouse.setText("Gudang Asal : " + txtWarehouse.getText());
-            txtDestWarehouse.setText("Gudang Tujuan : " + txtWarehouse.getText());
-            txtDestWarehouse.setVisibility(View.VISIBLE);
-        }else{
-            txtWarehouse.setText("Gudang : " + txtWarehouse.getText());
-            txtDestWarehouse.setVisibility(View.INVISIBLE);
-        }
+            txtWarehouse.setText(txtWarehouse.getText() + " -> " +
+                controllerWarehouse.getWarehouse(modelTransHeader.getDest_warehouse_id()).getWarehousename()
+            );
+        };
 
-        txtTransType.setText("Jenis Transaksi : " +  modelTransHeader.getHeaderFlagName());
-
+        txtTransType.setText(modelTransHeader.getHeaderFlagName());
         mViewModel.items.clear();
         for (ModelItem modelItem : modelItems.items){
             if (modelItem.qty == 0) continue;
@@ -123,12 +120,13 @@ public class TransReviewFragment extends Fragment {
         cr.setListener(new ControllerRest.Listener() {
             @Override
             public void onSuccess(String msg) {
-                Toast.makeText(getContext(), "yuhu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(getView()).navigate(R.id.nav_listtrans);
             }
 
             @Override
             public void onError(String msg) {
-
+                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
             }
 
             @Override

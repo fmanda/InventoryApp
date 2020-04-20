@@ -105,7 +105,23 @@ public class PickItemFragment extends Fragment {
         action.setModeltransheader(modelTransHeader);
 
         ModelItems modelItems = new ModelItems();
-        modelItems.items.addAll(mViewModel.items);
+
+        //update transdetail here
+        modelTransHeader.getItems().clear();
+        for (ModelItem modelItem : mViewModel.allitems){
+            if (modelItem.qty <= 0) continue;
+            ModelTransDetail modelTransDetail = new ModelTransDetail();
+            modelTransDetail.setItem_id(modelItem.getId());
+            modelTransDetail.setWarehouse_id(modelTransHeader.getWarehouse_id());
+            modelTransDetail.setHeader_flag(modelTransHeader.getHeader_flag());
+            modelTransDetail.setPurchaseprice(modelItem.getPurchaseprice());
+            modelTransDetail.setSellingprice(modelItem.getSellingprice());
+            modelTransDetail.setQty(modelItem.qty);
+
+            modelTransHeader.getItems().add(modelTransDetail);
+            modelItems.items.add(modelItem);
+        }
+
         action.setModelitems(modelItems);
         Navigation.findNavController(getView()).navigate(action);
     }
@@ -144,6 +160,7 @@ public class PickItemFragment extends Fragment {
     }
 
     private void filterItem(String s){
+        //this has bug
         mViewModel.items.clear();
         if (s.equals("")){
             mViewModel.items.addAll(mViewModel.allitems);
@@ -166,7 +183,7 @@ public class PickItemFragment extends Fragment {
             public void onFinishUpdate(ModelItem modelItem, int qty) {
                 modelItem.qty = qty;
                 itemAdapter.notifyDataSetChanged();
-                updateTransDetail();
+//                updateTransDetail();
                 dialogQtyFragment.dismiss();
             }
         });
@@ -174,20 +191,6 @@ public class PickItemFragment extends Fragment {
         dialogQtyFragment.show(fm, "Pilih Modifier");
     }
 
-    private void updateTransDetail(){
-        modelTransHeader.getItems().clear();
-        for (ModelItem modelItem : mViewModel.items){
-            if (modelItem.qty <= 0) continue;
-            ModelTransDetail modelTransDetail = new ModelTransDetail();
-            modelTransDetail.setItem_id(modelItem.getId());
-            modelTransDetail.setWarehouse_id(modelTransHeader.getWarehouse_id());
-            modelTransDetail.setHeader_flag(modelTransHeader.getHeader_flag());
-            modelTransDetail.setPurchaseprice(modelItem.getPurchaseprice());
-            modelTransDetail.setSellingprice(modelItem.getSellingprice());
-            modelTransDetail.setQty(modelItem.qty);
 
-            modelTransHeader.getItems().add(modelTransDetail);
-        }
-    }
 
 }

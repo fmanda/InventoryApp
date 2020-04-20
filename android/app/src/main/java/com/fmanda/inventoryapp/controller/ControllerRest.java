@@ -12,6 +12,7 @@ import com.fmanda.inventoryapp.helper.DBHelper;
 import com.fmanda.inventoryapp.helper.GsonRequest;
 import com.fmanda.inventoryapp.model.BaseModel;
 import com.fmanda.inventoryapp.model.ModelItem;
+import com.fmanda.inventoryapp.model.ModelStockReport;
 import com.fmanda.inventoryapp.model.ModelTransHeader;
 import com.fmanda.inventoryapp.model.ModelWarehouse;
 
@@ -133,6 +134,40 @@ public class ControllerRest {
         }
     }
 
+    public boolean DownloadStockReports(){
+        try {
+            String url = base_url() + "stock";
+            GsonRequest<ModelStockReport[]> gsonReq = new GsonRequest<>(url, ModelStockReport[].class,
+                    new Response.Listener<ModelStockReport[]>() {
+                        @Override
+                        public void onResponse(ModelStockReport[] response) {
+                            if (objectListener != null){
+                                objectListener.onSuccess(response);
+                            }
+                            if (listener != null) {
+                                listener.onSuccess("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (objectListener != null){
+                                objectListener.onError(error.toString());
+                            }
+                            if (listener != null) {
+                                listener.onError(error.toString());
+                            }
+                        }
+                    }
+            );
+            this.controllerRequest.addToRequestQueue(gsonReq, url);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 
     public boolean DownloadItems(){
         try {
@@ -199,6 +234,36 @@ public class ControllerRest {
         return true;
     }
 
+    public boolean DeleteTransHeader(int id){
+        try {
+            String url = base_url() + "transheader" + "/" + String.valueOf(id);
+            StringRequest sr = new StringRequest(Request.Method.DELETE, url,
+                    new Response.Listener<String>()
+                    {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            if (listener != null) {
+                                listener.onSuccess(response);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (listener != null) {
+                                listener.onError(error.toString());
+                            }
+                        }
+                    }
+            );
+            this.controllerRequest.addToRequestQueue(sr, url);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
     public boolean DownloadWarehouse(){
         try {
             String url = base_url() + "warehouse";
@@ -233,24 +298,77 @@ public class ControllerRest {
         }
         return true;
     }
-    public void SyncData( final Boolean async){
+
+    public boolean DownloadListTrans(int warehouse_id, int year, int month){
         try {
-            AsyncRestRunner runner = new AsyncRestRunner(this, 1, 2020);
-            runner.execute(async);
-        }catch (Exception e){
+            String url = base_url() + "transheader" + "/" + String.valueOf(warehouse_id)
+                    + "/" + String.valueOf(year)
+                    + "/" + String.valueOf(month);
+
+            GsonRequest<ModelTransHeader[]> gsonReq = new GsonRequest<>(url, ModelTransHeader[].class,
+                    new Response.Listener<ModelTransHeader[]>() {
+                        @Override
+                        public void onResponse(ModelTransHeader[] response) {
+                            if (objectListener != null){
+                                objectListener.onSuccess(response);
+                            }
+                            if (listener != null) {
+                                listener.onSuccess("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (objectListener != null){
+                                objectListener.onError(error.toString());
+                            }
+                            if (listener != null) {
+                                listener.onError(error.toString());
+                            }
+                        }
+                    }
+            );
+            this.controllerRequest.addToRequestQueue(gsonReq, url);
+        }catch(Exception e){
             e.printStackTrace();
         }
+        return true;
     }
 
-    public void SyncProfitLoss(int monthperiod, int yearperiod){
+    public boolean DownloadTransHeader(int id){
         try {
-            AsyncRestRunner runner = new AsyncRestRunner(this, monthperiod, yearperiod);
-//            runner.syncProject = Boolean.TRUE;
-            runner.syncProfitLoss = Boolean.TRUE;
-            runner.execute(Boolean.FALSE);
-        }catch (Exception e){
+            String url = base_url() + "transheader" + "/" + String.valueOf(id);
+
+            GsonRequest<ModelTransHeader> gsonReq = new GsonRequest<>(url, ModelTransHeader.class,
+                    new Response.Listener<ModelTransHeader>() {
+                        @Override
+                        public void onResponse(ModelTransHeader response) {
+                            if (objectListener != null){
+                                objectListener.onSuccess(new BaseModel[]{response});
+                            }
+                            if (listener != null) {
+                                listener.onSuccess("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (objectListener != null){
+                                objectListener.onError(error.toString());
+                            }
+                            if (listener != null) {
+                                listener.onError(error.toString());
+                            }
+                        }
+                    }
+            );
+            this.controllerRequest.addToRequestQueue(gsonReq, url);
+        }catch(Exception e){
             e.printStackTrace();
         }
+        return true;
     }
 
     public void UpdateItem(ModelItem modelItem){
@@ -306,6 +424,8 @@ public class ControllerRest {
             e.printStackTrace();
         }
     }
+
+
 }
 
 //next ganti ke java.util.concurrent

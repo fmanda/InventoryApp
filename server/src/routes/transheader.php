@@ -21,9 +21,32 @@
 		}
 	});
 
+	$app->get('/transheader/{warehouse_id}/{yearperiod}/{monthperiod}', function ($request, $response, $args) {
+		try{
+			$monthperiod = 0;
+			$yearperiod = 0;
+			$warehouse_id = 0;
+			if (isset($args['monthperiod'])) $monthperiod = $args['monthperiod'];
+			if (isset($args['yearperiod'])) $yearperiod = $args['yearperiod'];
+			if (isset($args['warehouse_id'])) $warehouse_id = $args['warehouse_id'];
+			$sql = "select * from transheader where month(transdate) = ".$monthperiod." and year(transdate) = " . $yearperiod;
+			if ($warehouse_id > 0) $sql = $sql . " and warehouse_id = ". $warehouse_id;
+
+			$data = DB::openQuery($sql);
+    	$json = json_encode($data);
+			$response->getBody()->write($json);
+			return $response->withHeader('Content-Type', 'application/json;charset=utf-8');
+		}catch(Exception $e){
+			$msg = $e->getMessage();
+			$response->getBody()->write($msg);
+			return $response->withStatus(500)
+				->withHeader('Content-Type', 'text/html');
+		}
+	});
+
 	$app->get('/transheader/{id}', function ($request, $response, $args) {
 		try{
-			$obj = ModelTransHeader::retrieve($args['id']);	    
+			$obj = ModelTransHeader::retrieve($args['id']);
 			$json = json_encode($obj);
 			$response->getBody()->write($json);
 			return $response->withHeader('Content-Type', 'application/json;charset=utf-8');

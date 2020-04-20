@@ -8,6 +8,16 @@
     tools:context=".ui.transheader.TransHeaderFragment">
 
     <TextView
+        android:id="@+id/txtTransNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="right"
+        android:text="#000000"
+        android:textSize="16sp" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -76,6 +86,15 @@
         android:layout_marginTop="20dp"
         android:background="@color/colorMoney"
         android:text="Pilih Item"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorWarning"
+        android:text="Hapus Transaksi"
         android:textColor="#FFFFFF" />
 
 </LinearLayout>

@@ -10,35 +10,40 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="Summary Transaksi" />
+
+    <TextView
+        android:id="@+id/txtTransNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal"
+        android:text="TransNo" />
 
     <TextView
         android:id="@+id/txtTransType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-condensed"
         android:text="Jenis Transaksi :" />
 
     <TextView
         android:id="@+id/txtWarehouse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-condensed"
         android:text="Gudang Asal :" />
 
     <TextView
-        android:id="@+id/txtDestWarehouse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:text="Gudang Tujuan :" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:fontFamily="sans-serif-condensed"
         android:text="Detail Items :" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -166,7 +166,7 @@ public class SettingFragment extends Fragment {
                                 if (password.toLowerCase().equals(response.getPassword().toLowerCase())) {
                                     cs.updateSetting("last_login", username);
                                     cs.isLogin = true;
-                                    navController.navigate(R.id.nav_home);
+                                    navController.navigate(R.id.nav_listtrans);
                                 } else {
                                     Snackbar.make(getView(), "Password Anda salah", Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();
