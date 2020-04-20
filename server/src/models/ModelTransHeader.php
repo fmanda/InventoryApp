@@ -21,6 +21,7 @@
 				static::saveObjToDB($obj, $db);
 				foreach($obj->items as $item){
 					$item->header_id = $obj->id;
+					$item->transdate = $obj->transdate;
 					ModelTransDetail::saveToDB($item, $db);
 				}
 				$db->commit();

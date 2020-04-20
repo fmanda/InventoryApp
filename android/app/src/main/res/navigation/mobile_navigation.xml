@@ -95,5 +95,9 @@
         android:id="@+id/nav_stock_report"
         android:name="com.fmanda.inventoryapp.ui.stock.StockReportFragment"
         android:label="Stock Barang" />
+    <fragment
+        android:id="@+id/nav_selling_qty"
+        android:name="com.fmanda.inventoryapp.ui.selling.SellingQtyFragment"
+        android:label="Penjualan Barang" />
 
 </navigation>

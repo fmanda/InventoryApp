@@ -32,7 +32,7 @@
             android:layout_weight="0"
             android:fontFamily="sans-serif-condensed"
             android:gravity="bottom|right"
-            android:text="Stock"
+            android:text="Qty Terjual"
             android:textAlignment="textStart"
             android:textSize="12sp"
             android:textStyle="italic" />

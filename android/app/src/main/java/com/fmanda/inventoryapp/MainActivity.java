@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-            R.id.nav_item, R.id.nav_listtrans, R.id.nav_stock_report, R.id.nav_setting
+            R.id.nav_item, R.id.nav_listtrans, R.id.nav_stock_report, R.id.nav_selling_qty, R.id.nav_setting
         ).setDrawerLayout(drawer).build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        navController.navigate(R.id.nav_listtrans);
+        navController.navigate(R.id.nav_selling_qty);
 //        setBackgroundColor(this.getColor(R.color.colorBackground));
         if (isWarehouseEmpty()){
             navController.navigate(R.id.nav_setting);
