@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fmanda.inventoryapp.R;
-import com.fmanda.inventoryapp.model.ModelStockReport;
-import com.fmanda.inventoryapp.model.ModelWarehouse;
+import com.fmanda.inventoryapp.model.ModelSellingQty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,47 +19,47 @@ import java.util.List;
  * Created by fma on 7/30/2017.
  */
 
-public class StockReportAdapter extends RecyclerView.Adapter<StockReportAdapter.ViewHolder> {
+public class SellingQtyAdapter extends RecyclerView.Adapter<SellingQtyAdapter.ViewHolder> {
     private Context context;
-    private List<ModelStockReport> stockReports;
+    private List<ModelSellingQty> sellingqtys;
     private LayoutInflater mInflater;
     private ItemClickListener itemClickListener;
-    private List<ModelStockReport> stockGroups;
+    private List<ModelSellingQty> sellingGroups;
 
-    public StockReportAdapter(Context context, List<ModelStockReport> stockReports, List<ModelStockReport> stockGroups) {
+    public SellingQtyAdapter(Context context, List<ModelSellingQty> sellingqtys, List<ModelSellingQty> sellingGroups) {
         this.context = context;
-        this.stockReports = stockReports;
-        this.stockGroups = stockGroups;
+        this.sellingqtys = sellingqtys;
+        this.sellingGroups = sellingGroups;
         this.mInflater = LayoutInflater.from(context);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.adapter_stockreport_layout, viewGroup, false);
+        View view = mInflater.inflate(R.layout.adapter_sellingqty_layout, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.modelStockReport = stockGroups.get(i);
-        viewHolder.txtNama.setText(viewHolder.modelStockReport.getItemname());
+        viewHolder.ModelSellingQty = sellingGroups.get(i);
+        viewHolder.txtNama.setText(viewHolder.ModelSellingQty.getItemname());
 
-        StockReportAdapterDetail stockReportAdapterDetail = new StockReportAdapterDetail(context, getStockRepors(viewHolder.modelStockReport.getItemname()));
+        SellingQtyAdapterDetail SellingQtyAdapterDetail = new SellingQtyAdapterDetail(context, getStockRepors(viewHolder.ModelSellingQty.getItemname()));
         viewHolder.rvDetail.setLayoutManager(new GridLayoutManager(context, 1));
-        viewHolder.rvDetail.setAdapter(stockReportAdapterDetail);
+        viewHolder.rvDetail.setAdapter(SellingQtyAdapterDetail);
     }
 
     @Override
     public int getItemCount() {
-        return stockGroups.size();
+        return sellingGroups.size();
     }
 
-    public List<ModelStockReport> getStockRepors(String itemname){
-        List<ModelStockReport> details = new ArrayList<>();
-        for (ModelStockReport modelStockReport : stockReports){
-            if (itemname.toLowerCase().equals(modelStockReport.getItemname().toLowerCase())){
-                details.add(modelStockReport);
+    public List<ModelSellingQty> getStockRepors(String itemname){
+        List<ModelSellingQty> details = new ArrayList<>();
+        for (ModelSellingQty ModelSellingQty : sellingqtys){
+            if (itemname.toLowerCase().equals(ModelSellingQty.getItemname().toLowerCase())){
+                details.add(ModelSellingQty);
             }
         }
         return details;
@@ -68,7 +67,7 @@ public class StockReportAdapter extends RecyclerView.Adapter<StockReportAdapter.
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ModelStockReport modelStockReport;
+        public ModelSellingQty ModelSellingQty;
         public TextView txtNama;
         public RecyclerView rvDetail;
 
@@ -81,7 +80,7 @@ public class StockReportAdapter extends RecyclerView.Adapter<StockReportAdapter.
         @Override
         public void onClick(View v) {
             if (itemClickListener != null) {
-                itemClickListener.onClick(modelStockReport);
+                itemClickListener.onClick(ModelSellingQty);
             }
         }
 
@@ -89,7 +88,7 @@ public class StockReportAdapter extends RecyclerView.Adapter<StockReportAdapter.
     }
 
     public interface ItemClickListener {
-        void onClick(ModelStockReport modelStockReport);
+        void onClick(ModelSellingQty ModelSellingQty);
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener){
@@ -99,29 +98,29 @@ public class StockReportAdapter extends RecyclerView.Adapter<StockReportAdapter.
 }
 
 
-class StockReportAdapterDetail extends RecyclerView.Adapter<StockReportAdapterDetail.ViewHolder> {
+class SellingQtyAdapterDetail extends RecyclerView.Adapter<SellingQtyAdapterDetail.ViewHolder> {
     private Context context;
-    private List<ModelStockReport> stockReports;
+    private List<ModelSellingQty> sellingqtys;
     private LayoutInflater mInflater;
 
-    public StockReportAdapterDetail(Context context, List<ModelStockReport> stockReports) {
+    public SellingQtyAdapterDetail(Context context, List<ModelSellingQty> sellingqtys) {
         this.context = context;
-        this.stockReports = stockReports;
+        this.sellingqtys = sellingqtys;
         this.mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public StockReportAdapterDetail.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.adapter_stockreportdetail_layout, viewGroup, false);
-        StockReportAdapterDetail.ViewHolder viewHolder = new StockReportAdapterDetail.ViewHolder(view);
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = mInflater.inflate(R.layout.adapter_sellingqtydetail_layout, viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(StockReportAdapterDetail.ViewHolder viewHolder, int i) {
-        viewHolder.modelStockReport = stockReports.get(i);
-        viewHolder.txtNama.setText(viewHolder.modelStockReport.getWarehousename());
-        int qty = (int) viewHolder.modelStockReport.getStock();
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        viewHolder.ModelSellingQty = sellingqtys.get(i);
+        viewHolder.txtNama.setText(viewHolder.ModelSellingQty.getWarehousename());
+        int qty = (int) viewHolder.ModelSellingQty.getQty();
         viewHolder.txtQty.setText(String.valueOf(qty));
 
         if (qty >= 0) {
@@ -133,12 +132,12 @@ class StockReportAdapterDetail extends RecyclerView.Adapter<StockReportAdapterDe
 
     @Override
     public int getItemCount() {
-        return stockReports.size();
+        return sellingqtys.size();
     }
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ModelStockReport modelStockReport;
+        public ModelSellingQty ModelSellingQty;
         public TextView txtNama;
         public TextView txtQty;
 

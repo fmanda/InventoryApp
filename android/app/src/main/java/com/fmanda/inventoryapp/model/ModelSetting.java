@@ -39,8 +39,8 @@ public class ModelSetting extends BaseModel {
 //        new ModelSetting("company_name","[your-company-name]").saveToDB(db);
 //        new ModelSetting("company_address","[your company address]\n[your company address]").saveToDB(db);
 //        new ModelSetting("company_phone","[company-phone]").saveToDB(db);
-        new ModelSetting("rest_url","10.0.2.2:8000").saveToDB(db);
-//        new ModelSetting("rest_url","http://api.website.cc").saveToDB(db);
+        new ModelSetting("rest_url","inv.motoroli.web.id").saveToDB(db);
+        new ModelSetting("last_login","admin").saveToDB(db);
 
     }
 

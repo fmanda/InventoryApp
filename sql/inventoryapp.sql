@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 18/04/2020 20:54:12
+ Date: 20/04/2020 18:45:29
 */
 
 SET NAMES utf8mb4;
@@ -26,10 +26,10 @@ CREATE TABLE `item`  (
   `itemcode` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `itemname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `groupname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `purchaseprice` float(10, 2) NULL DEFAULT NULL,
-  `sellingprice` float(10, 2) NULL DEFAULT NULL,
+  `purchaseprice` float(10, 2) NULL DEFAULT 0,
+  `sellingprice` float(10, 2) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for stock
@@ -57,7 +57,7 @@ CREATE TABLE `transdetail`  (
   `purchaseprice` float(10, 2) NULL DEFAULT NULL,
   `sellingprice` float(10, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for transheader
@@ -67,11 +67,12 @@ CREATE TABLE `transheader`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `transno` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `header_flag` int(255) NULL DEFAULT NULL,
-  `transdate` date NULL DEFAULT NULL,
+  `transdate` datetime(0) NULL DEFAULT NULL,
   `warehouse_id` int(255) NOT NULL,
+  `dest_warehouse_id` int(11) NULL DEFAULT NULL,
   `notes` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for users
@@ -93,6 +94,17 @@ CREATE TABLE `warehouse`  (
   `warehousename` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- View structure for v_stock
+-- ----------------------------
+DROP VIEW IF EXISTS `v_stock`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `v_stock` AS select b.itemname , c.warehousename, a.qty as stock
+from stock a
+inner join item b on a.item_id = b.id
+inner join warehouse c on a.warehouse_id = c.id
+where a.qty <> 0
+order by b.itemname, c.id ;
 
 -- ----------------------------
 -- Triggers structure for table transdetail

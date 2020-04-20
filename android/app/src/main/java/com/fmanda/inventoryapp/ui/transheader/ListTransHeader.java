@@ -225,7 +225,7 @@ public class ListTransHeader extends Fragment {
 
         ModelWarehouse modelWarehouse = new ModelWarehouse();
         modelWarehouse.setId(0);
-        modelWarehouse.setWarehousename("Semua Gudang/Toko");
+        modelWarehouse.setWarehousename("Semua");
         warehouses.add(modelWarehouse);
         warehouses.addAll(cp.getWarehouses());
 

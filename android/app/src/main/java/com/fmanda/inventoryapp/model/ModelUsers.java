@@ -15,6 +15,7 @@ public class ModelUsers extends BaseModel {
     }
 
     public String getPassword() {
+        if (password == null) password = "";
         return password;
     }
 

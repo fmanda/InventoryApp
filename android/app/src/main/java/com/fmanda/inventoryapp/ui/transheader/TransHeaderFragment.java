@@ -255,6 +255,8 @@ public class TransHeaderFragment extends Fragment {
         modelTransHeader.setWarehouse_id(warehouse_id);
         modelTransHeader.setDest_warehouse_id(destwarehouse_id);
 
+        cs.updateSetting("last_trans_warehouse",String.valueOf(warehouse_id));
+
         TransHeaderFragmentDirections.ActionNavTransheaderToNavPickitem action = TransHeaderFragmentDirections.actionNavTransheaderToNavPickitem();
         action.setModeltransheader(modelTransHeader);
         Navigation.findNavController(getView()).navigate(action);
@@ -270,6 +272,7 @@ public class TransHeaderFragment extends Fragment {
         warehouses.addAll(cw.getWarehouses());
 
         String last_trans_warehouse = cs.getSettingStr("last_trans_warehouse");
+        if (last_trans_warehouse.equals("")) last_trans_warehouse = "2";
         int position = 0;
         for(ModelWarehouse warehouse : warehouses){
             spWarehouseAdapter.add(warehouse.getWarehousename());

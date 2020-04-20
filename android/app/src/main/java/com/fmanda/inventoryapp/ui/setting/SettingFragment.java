@@ -119,11 +119,11 @@ public class SettingFragment extends Fragment {
             return;
         }
 
-        if (txtPassword.getText().toString().equals("")){
-            Snackbar.make(getView(), "Password wajib diisi", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-            return;
-        }
+//        if (txtPassword.getText().toString().equals("")){
+//            Snackbar.make(getView(), "Password wajib diisi", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show();
+//            return;
+//        }
 
         DBHelper db = DBHelper.getInstance(getContext());
         final ControllerSetting cs = ControllerSetting.getInstance(getContext());
@@ -166,7 +166,7 @@ public class SettingFragment extends Fragment {
                                 if (password.toLowerCase().equals(response.getPassword().toLowerCase())) {
                                     cs.updateSetting("last_login", username);
                                     cs.isLogin = true;
-                                    navController.navigate(R.id.nav_listtrans);
+                                    navController.navigate(R.id.nav_stock_report);
                                 } else {
                                     Snackbar.make(getView(), "Password Anda salah", Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();

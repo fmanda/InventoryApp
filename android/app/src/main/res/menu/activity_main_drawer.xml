@@ -19,6 +19,11 @@
             android:title="@string/menu_trans" />
 
         <item
+            android:id="@+id/nav_selling_qty"
+            android:icon="@drawable/ic_menu_cashflow"
+            android:title="Laporan Penjualan" />
+
+        <item
             android:id="@+id/nav_stock_report"
             android:icon="@drawable/ic_menu_apaging"
             android:title="Laporan Stock" />

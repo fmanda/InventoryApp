@@ -12,6 +12,7 @@ import com.fmanda.inventoryapp.helper.DBHelper;
 import com.fmanda.inventoryapp.helper.GsonRequest;
 import com.fmanda.inventoryapp.model.BaseModel;
 import com.fmanda.inventoryapp.model.ModelItem;
+import com.fmanda.inventoryapp.model.ModelSellingQty;
 import com.fmanda.inventoryapp.model.ModelStockReport;
 import com.fmanda.inventoryapp.model.ModelTransHeader;
 import com.fmanda.inventoryapp.model.ModelWarehouse;
@@ -264,6 +265,7 @@ public class ControllerRest {
         }
         return true;
     }
+
     public boolean DownloadWarehouse(){
         try {
             String url = base_url() + "warehouse";
@@ -309,6 +311,41 @@ public class ControllerRest {
                     new Response.Listener<ModelTransHeader[]>() {
                         @Override
                         public void onResponse(ModelTransHeader[] response) {
+                            if (objectListener != null){
+                                objectListener.onSuccess(response);
+                            }
+                            if (listener != null) {
+                                listener.onSuccess("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (objectListener != null){
+                                objectListener.onError(error.toString());
+                            }
+                            if (listener != null) {
+                                listener.onError(error.toString());
+                            }
+                        }
+                    }
+            );
+            this.controllerRequest.addToRequestQueue(gsonReq, url);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public boolean DownloadSellingQty(int year, int month){
+        try {
+            String url = base_url() + "sellingqty"  + "/" + String.valueOf(year) + "/" + String.valueOf(month);
+
+            GsonRequest<ModelSellingQty[]> gsonReq = new GsonRequest<>(url, ModelSellingQty[].class,
+                    new Response.Listener<ModelSellingQty[]>() {
+                        @Override
+                        public void onResponse(ModelSellingQty[] response) {
                             if (objectListener != null){
                                 objectListener.onSuccess(response);
                             }
