@@ -32,6 +32,8 @@
 			$sql = "select * from transheader where month(transdate) = ".$monthperiod." and year(transdate) = " . $yearperiod;
 			if ($warehouse_id > 0) $sql = $sql . " and warehouse_id = ". $warehouse_id;
 
+			$sql = $sql . " order by transdate desc";
+
 			$data = DB::openQuery($sql);
     	$json = json_encode($data);
 			$response->getBody()->write($json);

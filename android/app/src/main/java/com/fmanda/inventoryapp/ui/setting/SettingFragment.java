@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,6 +27,7 @@ import com.fmanda.inventoryapp.R;
 import com.fmanda.inventoryapp.controller.ControllerRequest;
 import com.fmanda.inventoryapp.controller.ControllerRest;
 import com.fmanda.inventoryapp.controller.ControllerSetting;
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.helper.DBHelper;
 import com.fmanda.inventoryapp.helper.GsonRequest;
 import com.fmanda.inventoryapp.model.ModelSetting;
@@ -78,14 +79,14 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 DBHelper dbHelper = DBHelper.getInstance(getContext());
                 dbHelper.resetDatabase(dbHelper.getWritableDatabase());
-                Toast.makeText(getContext(), "Database Reset OK", Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), "Database Reset OK");
             }
         });
 
         if (getArguments() != null){
             SettingFragmentArgs args = SettingFragmentArgs.fromBundle(getArguments());
             if (args.getSampleObject() != null) {
-                Toast.makeText(getContext(), args.getSampleObject().getItemname(), Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), args.getSampleObject().getItemname());
             }
         }
 
@@ -140,7 +141,7 @@ public class SettingFragment extends Fragment {
 
             @Override
             public void onError(String msg) {
-                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), msg);
             }
 
             @Override
@@ -180,7 +181,7 @@ public class SettingFragment extends Fragment {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                            AppHelper.makeToast(getContext(), error.toString());
                         }
                     }
             );

@@ -19,13 +19,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.fmanda.inventoryapp.R;
 import com.fmanda.inventoryapp.adapter.ItemAdapter;
 import com.fmanda.inventoryapp.adapter.ListTransAdapter;
 import com.fmanda.inventoryapp.controller.ControllerRest;
 import com.fmanda.inventoryapp.controller.ControllerWarehouse;
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.model.BaseModel;
 import com.fmanda.inventoryapp.model.ModelItem;
 import com.fmanda.inventoryapp.model.ModelTransHeader;
@@ -170,7 +171,7 @@ public class ListTransHeader extends Fragment {
 
                 @Override
                 public void onError(String msg) {
-                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    AppHelper.makeToast(getContext(), msg);
                 }
             });
             cr.DownloadTransHeader(id);
@@ -209,7 +210,7 @@ public class ListTransHeader extends Fragment {
                 }
                 @Override
                 public void onError(String msg) {
-                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    AppHelper.makeToast(getContext(), msg);
                 }
             });
             cr.DownloadListTrans(warehouse_id, year, month);

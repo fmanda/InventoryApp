@@ -22,12 +22,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.fmanda.inventoryapp.R;
 import com.fmanda.inventoryapp.controller.ControllerRest;
 import com.fmanda.inventoryapp.controller.ControllerSetting;
 import com.fmanda.inventoryapp.controller.ControllerWarehouse;
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.model.ModelTransDetail;
 import com.fmanda.inventoryapp.model.ModelTransHeader;
 import com.fmanda.inventoryapp.model.ModelWarehouse;
@@ -158,13 +159,13 @@ public class TransHeaderFragment extends Fragment {
                 cr.setListener(new ControllerRest.Listener() {
                     @Override
                     public void onSuccess(String msg) {
-                        Toast.makeText(getContext(), "Data transaksi berhasil dihapus", Toast.LENGTH_SHORT).show();
+                        AppHelper.makeToast(getContext(), "Data transaksi berhasil dihapus");
                         Navigation.findNavController(getView()).navigate(R.id.nav_listtrans);
                     }
 
                     @Override
                     public void onError(String msg) {
-                        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                        AppHelper.makeToast(getContext(), msg);
                     }
 
                     @Override

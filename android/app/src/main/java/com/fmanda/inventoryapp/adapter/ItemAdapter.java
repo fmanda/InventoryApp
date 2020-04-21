@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fmanda.inventoryapp.R;
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.helper.CurrencyHelper;
 import com.fmanda.inventoryapp.model.ModelItem;
 import com.fmanda.inventoryapp.model.ModelWarehouse;
@@ -81,7 +82,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         //
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, "click", Toast.LENGTH_SHORT).show();
+            AppHelper.makeToast(context, "click");
             if (itemClickListener != null) {
                 itemClickListener.onClick(modelItem);
             }

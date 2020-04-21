@@ -3,8 +3,9 @@ package com.fmanda.inventoryapp.controller;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
+//import android.widget.Toast;
 
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.helper.DBHelper;
 import com.fmanda.inventoryapp.model.ModelSetting;
 
@@ -46,7 +47,7 @@ public class ControllerSetting {
             }
             return settings;
         }catch(Exception e){
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+            AppHelper.makeToast(context, e.toString());
         }
         return null;
     }
@@ -83,7 +84,7 @@ public class ControllerSetting {
                 return modelSetting;
             }
         }catch(Exception ex){
-            Toast.makeText(context, ex.toString(), Toast.LENGTH_SHORT).show();
+            AppHelper.makeToast(context, ex.toString());
         }
         return new ModelSetting(varname,"");
     }

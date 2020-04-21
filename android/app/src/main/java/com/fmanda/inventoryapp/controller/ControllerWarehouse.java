@@ -4,8 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.ExpandableListAdapter;
-import android.widget.Toast;
+//import android.widget.Toast;
 
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.helper.DBHelper;
 import com.fmanda.inventoryapp.model.ModelWarehouse;
 
@@ -37,7 +38,7 @@ public class ControllerWarehouse {
             }
             return projects;
         }catch(Exception e){
-            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+            AppHelper.makeToast(context, e.toString());
         }
         return null;
     }

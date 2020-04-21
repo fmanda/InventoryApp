@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -21,6 +21,7 @@ import com.fmanda.inventoryapp.R;
 import com.fmanda.inventoryapp.adapter.ItemAdapter;
 import com.fmanda.inventoryapp.adapter.PickItemAdapter;
 import com.fmanda.inventoryapp.controller.ControllerRest;
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.model.BaseModel;
 import com.fmanda.inventoryapp.model.ModelItem;
 import com.fmanda.inventoryapp.model.ModelItems;
@@ -91,7 +92,7 @@ public class PickItemFragment extends Fragment {
             if (args.getModeltransheader() != null) {
                 modelTransHeader = args.getModeltransheader();
             }else{
-                Toast.makeText(getContext(), "ModelTransHeader is null", Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), "ModelTransHeader is null");
                 btnNext.setVisibility(View.GONE);
             }
         }
@@ -137,7 +138,7 @@ public class PickItemFragment extends Fragment {
                 }
                 @Override
                 public void onError(String msg) {
-                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    AppHelper.makeToast(getContext(), msg);
                 }
             });
             cr.DownloadItems();

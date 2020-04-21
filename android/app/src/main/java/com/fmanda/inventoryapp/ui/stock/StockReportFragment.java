@@ -15,13 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.fmanda.inventoryapp.R;
 import com.fmanda.inventoryapp.adapter.StockReportAdapter;
 import com.fmanda.inventoryapp.adapter.WarehouseAdapter;
 import com.fmanda.inventoryapp.controller.ControllerRest;
 import com.fmanda.inventoryapp.controller.ControllerWarehouse;
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.model.BaseModel;
 import com.fmanda.inventoryapp.model.ModelItem;
 import com.fmanda.inventoryapp.model.ModelStockReport;
@@ -83,7 +84,7 @@ public class StockReportFragment extends Fragment {
                 }
                 @Override
                 public void onError(String msg) {
-                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    AppHelper.makeToast(getContext(), msg);
                 }
             });
             cr.DownloadStockReports();

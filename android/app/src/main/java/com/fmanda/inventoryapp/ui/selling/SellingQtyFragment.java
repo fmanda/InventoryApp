@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fmanda.inventoryapp.R;
 import com.fmanda.inventoryapp.adapter.SellingQtyAdapter;
 import com.fmanda.inventoryapp.controller.ControllerRest;
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.model.BaseModel;
 import com.fmanda.inventoryapp.model.ModelSellingQty;
 
@@ -130,7 +131,7 @@ public class SellingQtyFragment extends Fragment {
                 }
                 @Override
                 public void onError(String msg) {
-                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    AppHelper.makeToast(getContext(), msg);
                 }
             });
             cr.DownloadSellingQty(year,month);

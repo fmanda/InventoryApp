@@ -12,10 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.fmanda.inventoryapp.R;
 import com.fmanda.inventoryapp.controller.ControllerRest;
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.model.ModelItem;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -91,20 +92,20 @@ public class UpdateItemFragment extends Fragment {
                 modelItem.setSellingprice(Double.parseDouble(txtHargaJual.getText().toString()));
             }
         } catch (NumberFormatException e) {
-            Toast.makeText(getContext(), "Nilai Harga Beli / Harga Jual salah", Toast.LENGTH_SHORT).show();
+            AppHelper.makeToast(getContext(), "Nilai Harga Beli / Harga Jual salah");
         }
 
         ControllerRest cr = new ControllerRest(getContext());
         cr.setListener(new ControllerRest.Listener() {
             @Override
             public void onSuccess(String msg) {
-                Toast.makeText(getContext(), "Data Item berhasil disimpan", Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), "Data Item berhasil disimpan");
                 Navigation.findNavController(getView()).navigate(R.id.nav_item);
             }
 
             @Override
             public void onError(String msg) {
-                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), msg);
             }
 
             @Override
@@ -136,13 +137,13 @@ public class UpdateItemFragment extends Fragment {
                 cr.setListener(new ControllerRest.Listener() {
                     @Override
                     public void onSuccess(String msg) {
-                        Toast.makeText(getContext(), "Data Item berhasil dihapus", Toast.LENGTH_SHORT).show();
+                        AppHelper.makeToast(getContext(), "Data Item berhasil dihapus");
                         Navigation.findNavController(getView()).navigate(R.id.nav_item);
                     }
 
                     @Override
                     public void onError(String msg) {
-                        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                        AppHelper.makeToast(getContext(), msg);
                     }
 
                     @Override

@@ -13,12 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.fmanda.inventoryapp.R;
 import com.fmanda.inventoryapp.adapter.SummaryItemAdapter;
 import com.fmanda.inventoryapp.controller.ControllerRest;
 import com.fmanda.inventoryapp.controller.ControllerWarehouse;
+import com.fmanda.inventoryapp.helper.AppHelper;
 import com.fmanda.inventoryapp.model.ModelItem;
 import com.fmanda.inventoryapp.model.ModelItems;
 import com.fmanda.inventoryapp.model.ModelTransDetail;
@@ -65,14 +66,14 @@ public class TransReviewFragment extends Fragment {
             if (args.getModeltransheader() != null) {
                 modelTransHeader = args.getModeltransheader();
             }else{
-                Toast.makeText(getContext(), "ModelTransHeader is null", Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), "ModelTransHeader is null");
                 btnSave.setVisibility(View.GONE);
             }
 
             if (args.getModelitems() != null) {
                 modelItems = args.getModelitems();
             }else{
-                Toast.makeText(getContext(), "ModelItems is null", Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), "ModelItems is null");
                 btnSave.setVisibility(View.GONE);
             }
         }
@@ -120,13 +121,13 @@ public class TransReviewFragment extends Fragment {
         cr.setListener(new ControllerRest.Listener() {
             @Override
             public void onSuccess(String msg) {
-                Toast.makeText(getContext(), "Data Berhasil Disimpan", Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), "Data Berhasil Disimpan");
                 Navigation.findNavController(getView()).navigate(R.id.nav_listtrans);
             }
 
             @Override
             public void onError(String msg) {
-                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                AppHelper.makeToast(getContext(), msg);
             }
 
             @Override
