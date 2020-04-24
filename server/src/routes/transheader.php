@@ -116,3 +116,30 @@
 				->withHeader('Content-Type', 'text/html');
 		}
 	});
+
+	$app->get('/sellingperiod/{yearperiod}/{monthperiod}', function ($request, $response, $args) {
+		try{
+			$monthperiod = 0;
+			$yearperiod = 0;
+
+			if (isset($args['monthperiod'])) $monthperiod = $args['monthperiod'];
+			if (isset($args['yearperiod'])) $yearperiod = $args['yearperiod'];
+			$sql = "select cast(a.transdate as date) as transdate, b.itemname, c.warehousename, sum(abs(a.qty)) as qty
+							from transdetail a
+							inner join item b on a.item_id = b.id
+							inner join warehouse c on a.warehouse_id = c.id
+							where a.header_flag = 2
+							and month(transdate) = ".$monthperiod." and year(transdate) = " . $yearperiod ."
+							group by cast(a.transdate as date), b.itemname, c.warehousename
+							order by a.transdate desc, c.id, b.itemname";
+			$data = DB::openQuery($sql);
+    	$json = json_encode($data);
+			$response->getBody()->write($json);
+			return $response->withHeader('Content-Type', 'application/json;charset=utf-8');
+		}catch(Exception $e){
+			$msg = $e->getMessage();
+			$response->getBody()->write($msg);
+			return $response->withStatus(500)
+				->withHeader('Content-Type', 'text/html');
+		}
+	});

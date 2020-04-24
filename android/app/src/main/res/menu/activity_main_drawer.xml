@@ -21,7 +21,12 @@
         <item
             android:id="@+id/nav_selling_qty"
             android:icon="@drawable/ic_menu_cashflow"
-            android:title="Laporan Penjualan" />
+            android:title="Lap Penjualan Barang" />
+
+        <item
+            android:id="@+id/nav_selling_period"
+            android:icon="@drawable/ic_menu_profitloss"
+            android:title="Lap Penjualan Harian" />
 
         <item
             android:id="@+id/nav_stock_report"

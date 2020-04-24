@@ -12,6 +12,7 @@ import com.fmanda.inventoryapp.helper.DBHelper;
 import com.fmanda.inventoryapp.helper.GsonRequest;
 import com.fmanda.inventoryapp.model.BaseModel;
 import com.fmanda.inventoryapp.model.ModelItem;
+import com.fmanda.inventoryapp.model.ModelSellingPeriod;
 import com.fmanda.inventoryapp.model.ModelSellingQty;
 import com.fmanda.inventoryapp.model.ModelStockReport;
 import com.fmanda.inventoryapp.model.ModelTransHeader;
@@ -346,6 +347,41 @@ public class ControllerRest {
                     new Response.Listener<ModelSellingQty[]>() {
                         @Override
                         public void onResponse(ModelSellingQty[] response) {
+                            if (objectListener != null){
+                                objectListener.onSuccess(response);
+                            }
+                            if (listener != null) {
+                                listener.onSuccess("");
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (objectListener != null){
+                                objectListener.onError(error.toString());
+                            }
+                            if (listener != null) {
+                                listener.onError(error.toString());
+                            }
+                        }
+                    }
+            );
+            this.controllerRequest.addToRequestQueue(gsonReq, url);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public boolean DownloadSellingPeriod(int year, int month){
+        try {
+            String url = base_url() + "sellingperiod"  + "/" + String.valueOf(year) + "/" + String.valueOf(month);
+
+            GsonRequest<ModelSellingPeriod[]> gsonReq = new GsonRequest<>(url, ModelSellingPeriod[].class,
+                    new Response.Listener<ModelSellingPeriod[]>() {
+                        @Override
+                        public void onResponse(ModelSellingPeriod[] response) {
                             if (objectListener != null){
                                 objectListener.onSuccess(response);
                             }
