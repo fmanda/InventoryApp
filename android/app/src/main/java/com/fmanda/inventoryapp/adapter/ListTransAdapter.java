@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 //import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fmanda.inventoryapp.R;
@@ -69,8 +70,8 @@ public class ListTransAdapter extends RecyclerView.Adapter<ListTransAdapter.View
             }
         }
 
-//        viewHolder.txtGroup.setText(viewHolder.modelItem.getGroupname());
-//        viewHolder.txtPrice.setText(CurrencyHelper.format(viewHolder.modelItem.getSellingprice(), true) );
+//        SummaryItemAdapter summaryItemAdapter = new SummaryItemAdapter(context, getStockRepors(viewHolder.ModelSellingQty.getItemname()));
+
     }
 
     @Override
@@ -85,7 +86,7 @@ public class ListTransAdapter extends RecyclerView.Adapter<ListTransAdapter.View
         public TextView txtLocation;
         public TextView txtTransDate;
         public LinearLayout lnTransAdapter;
-//        public TextView txtGroup;
+        public RecyclerView rvItems;
 //        public TextView txtPrice;
 
         public ViewHolder(View itemView) {
@@ -94,7 +95,7 @@ public class ListTransAdapter extends RecyclerView.Adapter<ListTransAdapter.View
             txtLocation = itemView.findViewById(R.id.txtLocation);
             txtTransDate = itemView.findViewById(R.id.txtTransDate);
             lnTransAdapter = itemView.findViewById(R.id.lnTransAdapter);
-//            txtGroup = itemView.findViewById(R.id.txtGroup);
+            rvItems = itemView.findViewById(R.id.rvItems);
 //            txtPrice = itemView.findViewById(R.id.txtPrice);
 
             lnTransAdapter.setOnClickListener(new View.OnClickListener() {

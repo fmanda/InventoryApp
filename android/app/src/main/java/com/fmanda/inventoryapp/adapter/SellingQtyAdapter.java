@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Created by fma on 7/30/2017.
- */
+ */SellingQtyAdapter
 
 public class SellingQtyAdapter extends RecyclerView.Adapter<SellingQtyAdapter.ViewHolder> {
     private Context context;

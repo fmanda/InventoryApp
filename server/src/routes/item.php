@@ -9,7 +9,7 @@
 
 	$app->get('/item', function ($request, $response, $args) {
 		try{
-			$sql = "select * from item";
+			$sql = "select * from item order by itemname";
 	    $data = DB::openQuery($sql);
 	    $json = json_encode($data);
 	    $response->getBody()->write($json);

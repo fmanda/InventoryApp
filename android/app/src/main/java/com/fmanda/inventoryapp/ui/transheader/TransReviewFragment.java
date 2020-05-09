@@ -140,9 +140,9 @@ public class TransReviewFragment extends Fragment {
 
     private void reupdateTransDetail(){
         //set all warehouse
-        int ifactor = 1;
-        if (modelTransHeader.getHeader_flag() == 2){
-            ifactor = -1;
+        int ifactor = -1;
+        if (modelTransHeader.getHeader_flag() == 1){
+            ifactor = 1;
         }
 
         List<ModelTransDetail> trfDetails = new ArrayList<>();
